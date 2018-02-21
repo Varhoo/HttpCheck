@@ -100,7 +100,7 @@ class Runner:
             try:
                 external_link(it)
             except Exception as e:
-                print("Unexpected error: %s" % e.value)
+                print("Unexpected error: %s" % e)
                 raise Exception("Error: broken link %s on page %s" % (it, self.parents[it]))
 
         # check sources

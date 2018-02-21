@@ -119,7 +119,7 @@ class Runner:
 
     def check(self, url):
         o = urlparse(url)
-        self.req = request(o.netloc)
+        self.req = request(o.netloc, o.scheme)
         url, content = self.req.get(o.path)
         oo = urlparse(url)
         if url.startswith("http") and oo.netloc not in self.host:
@@ -171,8 +171,8 @@ class Runner:
         re_links = '<a href="?\'?([^"\'>]*)'
         re_sources = '[^<]+(href|src|data)="?\'?([^"\'>]*)'
         s = set()
-
         for it in re.findall(re_links, content):
+            if it.startswith("mailto:"): continue
             link = absolute_url(it, url)
             if not link: continue
             s.add(link)
